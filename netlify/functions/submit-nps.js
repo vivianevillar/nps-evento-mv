@@ -1,5 +1,6 @@
 const NOTION_DATABASE_ID = "69236a331f284a0aa2cfe4d73a548d74";
 const NOTION_VERSION = "2022-06-28";
+const ICON_URL = "https://nps-master-mv.netlify.app/favicon.png";
 
 exports.handler = async (event) => {
   const headers = {
@@ -51,15 +52,15 @@ exports.handler = async (event) => {
   };
 
   const scaleFields = {
-    "Como você avalia a experiência geral do evento?": data.experiencia_geral,
-    "Como você avalia a organização do evento?": data.organizacao,
-    "Como você avalia o atendimento do time MV?": data.atendimento,
-    "Como você avalia a aplicabilidade dos conteúdos no seu negócio?": data.aplicabilidade,
-    "Como você avalia a cidade escolhida (São Paulo)?": data.cidade,
-    "Como você avalia o local do evento?": data.local,
-    "Como você avalia a alimentação em geral?": data.alimentacao,
-    "Como você avalia os brindes recebidos?": data.brindes,
-    "Em uma escala de 0 a 10, o quanto você recomendaria este evento para um conhecido?": data.nps
+    "Experiência": data.experiencia_geral,
+    "Organização": data.organizacao,
+    "Atendimento": data.atendimento,
+    "Aplicabilidade": data.aplicabilidade,
+    "Cidade": data.cidade,
+    "Local": data.local,
+    "Alimentação": data.alimentacao,
+    "Brindes": data.brindes,
+    "NPS": data.nps
   };
 
   for (const [key, value] of Object.entries(scaleFields)) {
@@ -67,10 +68,10 @@ exports.handler = async (event) => {
     if (field) properties[key] = field;
   }
 
-  properties["O que você mais gostou no evento?"] = textField(data.mais_gostou);
-  properties["O que você menos gostou no evento?"] = textField(data.menos_gostou);
-  properties["O que você mudaria ou acrescentaria para uma próxima edição?"] = textField(data.mudaria);
-  properties["Nome (opcional)"] = textField(data.nome);
+  properties["Mais gostou"] = textField(data.mais_gostou);
+  properties["Menos gostou"] = textField(data.menos_gostou);
+  properties["Mudaria"] = textField(data.mudaria);
+  properties["Nome"] = textField(data.nome);
 
   try {
     const response = await fetch("https://api.notion.com/v1/pages", {
@@ -82,6 +83,10 @@ exports.handler = async (event) => {
       },
       body: JSON.stringify({
         parent: { database_id: NOTION_DATABASE_ID },
+        icon: {
+          type: "external",
+          external: { url: ICON_URL }
+        },
         properties: properties
       })
     });
