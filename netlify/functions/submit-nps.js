@@ -1,7 +1,6 @@
 const NOTION_DATABASE_ID = "69236a331f284a0aa2cfe4d73a548d74";
 const NOTION_VERSION = "2022-06-28";
-const ICON_URL = "https://nps-master-mv.netlify.app/favicon.png";
-
+const ICON_URL = "https://nps-master-mv.netlify.app/logo-mv-icon.png";
 exports.handler = async (event) => {
   const headers = {
     "Access-Control-Allow-Origin": "*",
