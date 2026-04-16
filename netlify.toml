@@ -1,0 +1,14 @@
+# Configuração do Netlify
+# Aponta onde estão as functions e define runtime Node
+
+[build]
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Redirect amigável: /api/submit-nps -> /.netlify/functions/submit-nps
+[[redirects]]
+  from = "/api/submit-nps"
+  to = "/.netlify/functions/submit-nps"
+  status = 200
