@@ -44,8 +44,8 @@ exports.handler = async (event) => {
   const pad = (n) => String(n).padStart(2, "0");
   const brtOffset = -3 * 60;
   const local = new Date(now.getTime() + (brtOffset - now.getTimezoneOffset()) * 60000);
-  const titulo = `Resposta ${pad(local.getDate())}/${pad(local.getMonth() + 1)} ${pad(local.getHours())}:${pad(local.getMinutes())}`;
-
+const nomeResposta = (data.nome && data.nome.trim()) ? data.nome.trim() : "Anônimo";
+  const titulo = `${nomeResposta} - ${pad(local.getDate())}/${pad(local.getMonth() + 1)} ${pad(local.getHours())}:${pad(local.getMinutes())}`;
   const properties = {
     "Resposta": { title: [{ text: { content: titulo } }] }
   };
