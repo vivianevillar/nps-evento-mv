@@ -71,8 +71,7 @@ exports.handler = async (event) => {
   properties["Mais gostou"] = textField(data.mais_gostou);
   properties["Menos gostou"] = textField(data.menos_gostou);
   properties["Mudaria"] = textField(data.mudaria);
-  properties["Nome"] = textField(data.nome);
-
+properties["Nome"] = textField(data.nome && data.nome.trim() ? data.nome : "Anônimo");
   try {
     const response = await fetch("https://api.notion.com/v1/pages", {
       method: "POST",
